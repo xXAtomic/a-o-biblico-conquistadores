@@ -1,0 +1,26 @@
+[
+  {
+    "id": "daniel",
+    "nombre": "Daniel",
+    "requisitoSemanas": 1,
+    "mensaje": "Daniel oraba 3 veces al día y estudiaba de la palabra del Señor con diligencia. ¡Has demostrado la misma constancia!",
+    "color": "#FFD700",
+    "imagen": "/characters/daniel.png"
+  },
+  {
+    "id": "david",
+    "nombre": "David",
+    "requisitoSemanas": 4,
+    "mensaje": "Un hombre conforme al corazón de Dios. Al igual que David, has encontrado deleite en las Escrituras.",
+    "color": "#4CAF50",
+    "imagen": "/characters/david.png"
+  },
+  {
+    "id": "ester",
+    "nombre": "Ester",
+    "requisitoSemanas": 8,
+    "mensaje": "Valentía y fe. Has avanzado con determinación en tu estudio bíblico. ¡Sigue brillando!",
+    "color": "#E91E63",
+    "imagen": "/characters/esther.png"
+  }
+]
