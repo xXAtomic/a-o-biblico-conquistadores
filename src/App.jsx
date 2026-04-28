@@ -44,6 +44,7 @@ function App() {
   const [selectedPassage, setSelectedPassage] = useState(null);
   const [activeLogro, setActiveLogro] = useState(null);
   const [showCertificate, setShowCertificate] = useState(false);
+  const [activeTab, setActiveTab] = useState('inicio');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -164,34 +165,42 @@ function App() {
   }, [formData.id, screen]);
 
   const preCacheReadings = async () => {
-    // Find next 4 weeks starting from current progress
-    const nextWeeks = lecturasData.filter(w => !completedWeeks.includes(w.semana)).slice(0, 4);
+    // Find only the next 5 uncompleted readings
+    const allReadings = [];
+    lecturasData.forEach(w => {
+      w.lecturas.forEach((l, idx) => {
+        if (!completedLecturas[`${w.semana}-${idx}`]) {
+          allReadings.push({ passage: l, semana: w.semana, idx });
+        }
+      });
+    });
+
+    const next5 = allReadings.slice(0, 5);
     let count = 0;
     
-    for (const week of nextWeeks) {
-      for (const passage of week.lecturas) {
-        const cacheKey = `bible_cache_${passage.replace(/\s+/g, '_').toLowerCase()}`;
-        if (!localStorage.getItem(cacheKey)) {
-          try {
-            const lastSpaceIndex = passage.lastIndexOf(' ');
-            if (lastSpaceIndex === -1) continue;
-            const bookRaw = passage.substring(0, lastSpaceIndex);
-            const refRaw = passage.substring(lastSpaceIndex + 1);
-            let book = bookRaw.toLowerCase().replace(/\s+/g, '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-            if (book === 'salmo') book = 'salmos';
-            const [chapter, verses] = refRaw.split(':');
-            
-            const response = await fetch(`https://bible-api.deno.dev/api/read/rv1960/${book}/${chapter}/${verses}`);
-            if (response.ok) {
-              const data = await response.json();
-              localStorage.setItem(cacheKey, JSON.stringify(data));
-              count++;
-            }
-          } catch (e) { console.error("Error pre-caching:", passage); }
-        }
+    for (const item of next5) {
+      const passage = item.passage;
+      const cacheKey = `bible_cache_${passage.replace(/\s+/g, '_').toLowerCase()}`;
+      if (!localStorage.getItem(cacheKey)) {
+        try {
+          const lastSpaceIndex = passage.lastIndexOf(' ');
+          if (lastSpaceIndex === -1) continue;
+          const bookRaw = passage.substring(0, lastSpaceIndex);
+          const refRaw = passage.substring(lastSpaceIndex + 1);
+          let book = bookRaw.toLowerCase().replace(/\s+/g, '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+          if (book === 'salmo') book = 'salmos';
+          const [chapter, verses] = refRaw.split(':');
+          
+          const response = await fetch(`https://bible-api.deno.dev/api/read/rv1960/${book}/${chapter}/${verses}`);
+          if (response.ok) {
+            const data = await response.json();
+            localStorage.setItem(cacheKey, JSON.stringify(data));
+            count++;
+          }
+        } catch (e) { console.error("Error pre-caching:", passage); }
       }
     }
-    alert(`¡Éxito! Se han descargado ${count} nuevas lecturas para uso offline.`);
+    alert(`¡Éxito! Se han descargado las próximas ${count} lecturas (5 días) para uso offline.`);
   };
 
   // Handle Notifications Setup
@@ -252,9 +261,9 @@ function App() {
       return (
         <>
           <div className="app-container animate-fade-in">
-            <div className="hero-section" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0px', marginBottom: '20px', marginLeft: '-20px' }}>
-              <img src="/icon2.png" alt="ConquisBiblia Icon" style={{ width: '130px', height: '130px', objectFit: 'contain' }} />
-              <h1 style={{ fontSize: '2.8rem', lineHeight: '1', margin: 0, marginLeft: '-15px' }}>Conquis<span style={{ color: 'var(--on-surface)' }}>Biblia</span></h1>
+            <div className="hero-section" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
+              <img src="/icon2.png" alt="ConquisBiblia Icon" style={{ width: '100px', height: '100px', objectFit: 'contain', marginBottom: '10px' }} />
+              <h1 style={{ fontSize: 'min(2.5rem, 10vw)', lineHeight: '1', margin: 0, textAlign: 'center' }}>Conquis<span style={{ color: 'var(--on-surface)' }}>Biblia</span></h1>
             </div>
     
             <form className="registration-card glass-card" onSubmit={handleRegister}>
@@ -268,14 +277,14 @@ function App() {
               </div>
               <div className="input-group">
                 <label>Unidad / Club</label>
-                <div style={{ display: 'flex', gap: '10px' }}>
+                <div className="flex-row-mobile">
                   <input type="text" name="unidad" placeholder="Unidad" required value={formData.unidad} onChange={handleInputChange} />
                   <input type="text" name="club" placeholder="Club" required value={formData.club} onChange={handleInputChange} />
                 </div>
               </div>
               <div className="input-group">
                 <label>Ciudad / País</label>
-                <div style={{ display: 'flex', gap: '10px' }}>
+                <div className="flex-row-mobile">
                   <input type="text" name="ciudad" placeholder="Ciudad" required value={formData.ciudad} onChange={handleInputChange} />
                   <input type="text" name="pais" placeholder="País" required value={formData.pais} onChange={handleInputChange} />
                 </div>
@@ -284,7 +293,10 @@ function App() {
               <button type="submit" className="btn-primary btn-full">
                 COMENZAR EXPEDICIÓN
               </button>
-              <p style={{ textAlign: 'center', fontSize: '0.75rem', color: 'var(--on-surface-variant)', marginTop: '20px', letterSpacing: '1px' }}>Creado por AtomicDevs</p>
+              <p style={{ textAlign: 'center', fontSize: '0.85rem', color: 'var(--on-surface-variant)', marginTop: '20px' }}>
+                ¿Ya tienes cuenta? <span style={{ color: 'var(--primary)', cursor: 'pointer', fontWeight: 'bold' }}>Inicia sesión</span>
+              </p>
+              <p style={{ textAlign: 'center', fontSize: '0.75rem', color: 'var(--on-surface-variant)', marginTop: '20px', opacity: 0.6 }}>Creado por AtomicDevs</p>
             </form>
           </div>
         </>
@@ -295,41 +307,89 @@ function App() {
       return (
         <>
           <div className="app-container animate-fade-in">
-            <header style={{ marginBottom: '30px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div>
-                <h2 style={{ fontSize: '1.2rem', color: 'var(--on-surface)' }}>Conquistador: {formData.nombre}</h2>
+            <header style={{ marginBottom: '30px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '15px' }}>
+              <div style={{ flex: '1', minWidth: '150px' }}>
+                <h2 style={{ fontSize: '1.1rem', color: 'var(--on-surface)', wordBreak: 'break-word' }}>Conquistador: {formData.nombre}</h2>
                 <p style={{ fontSize: '0.8rem', color: 'var(--primary)' }}>
                   {formData.club ? `Club ${formData.club}` : 'Club Conquistadores'} 
                   {formData.unidad ? ` • ${formData.unidad}` : ''}
                 </p>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0px' }}>
-                <img src="/icon2.png" alt="Logo" style={{ width: '65px', height: '65px', objectFit: 'contain' }} />
-                <h1 style={{ fontSize: '1.4rem', margin: 0, marginLeft: '-10px' }}>Conquis<span style={{ color: 'var(--on-surface)' }}>Biblia</span></h1>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                <img src="/icon2.png" alt="Logo" style={{ width: '40px', height: '40px', objectFit: 'contain' }} />
+                <h1 style={{ fontSize: '1.2rem', margin: 0 }}>Conquis<span style={{ color: 'var(--on-surface)' }}>Biblia</span></h1>
               </div>
             </header>
     
-            {!selectedWeek ? (
+            {activeTab === 'inicio' && !selectedWeek && (
               <>
                 {currentReading ? (
-                  <div className="today-card glass-card animate-slide-up">
-                    <div className="today-header">
-                      <span className="today-label">Lectura de hoy</span>
-                      <span className="today-week">Semana {currentReading.semana}</span>
+                  <div className="dashboard-hero glass-card animate-slide-up" style={{ textAlign: 'center', padding: '30px 20px', marginBottom: '30px' }}>
+                    <p style={{ color: 'var(--on-surface-variant)', fontSize: '0.9rem', marginBottom: '15px' }}>Progreso Semanal</p>
+                    
+                    <div style={{ position: 'relative', width: '180px', height: '180px', margin: '0 auto 20px' }}>
+                      <svg viewBox="0 0 36 36" style={{ width: '100%', height: '100%', transform: 'rotate(-90deg)' }}>
+                        <path
+                          d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                          fill="none"
+                          stroke="rgba(255,255,255,0.1)"
+                          strokeWidth="3"
+                        />
+                        <path
+                          d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                          fill="none"
+                          stroke="var(--primary)"
+                          strokeWidth="3"
+                          strokeDasharray={`${(() => {
+                            const weekData = lecturasData.find(w => w.semana === currentReading.semana);
+                            const completedInWeek = weekData.lecturas.filter((_, idx) => completedLecturas[`${currentReading.semana}-${idx}`]).length;
+                            return (completedInWeek / weekData.lecturas.length) * 100;
+                          })()}, 100)`}
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+                        <span style={{ fontSize: '2.5rem', fontWeight: '800', display: 'block' }}>
+                          {Math.round((() => {
+                            const weekData = lecturasData.find(w => w.semana === currentReading.semana);
+                            const completedInWeek = weekData.lecturas.filter((_, idx) => completedLecturas[`${currentReading.semana}-${idx}`]).length;
+                            return (completedInWeek / weekData.lecturas.length) * 100;
+                          })())}%
+                        </span>
+                        <span style={{ fontSize: '0.7rem', color: 'var(--on-surface-variant)', fontWeight: '600' }}>
+                          Semana {currentReading.semana} de 52
+                        </span>
+                      </div>
                     </div>
-                    <h3 className="today-passage">{currentReading.capitulos}</h3>
-                    <p className="today-theme">{currentReading.tema}</p>
-                    <div style={{ display: 'flex', gap: '10px', marginTop: '15px' }}>
-                      <button className="btn-primary" style={{ flex: 2 }} onClick={() => setSelectedPassage(currentReading.capitulos)}>
-                        ABRIR LECTOR
-                      </button>
+
+                    <p style={{ fontSize: '0.8rem', color: 'var(--on-surface-variant)', marginBottom: '20px' }}>
+                      {(() => {
+                        const weekData = lecturasData.find(w => w.semana === currentReading.semana);
+                        const completedInWeek = weekData.lecturas.filter((_, idx) => completedLecturas[`${currentReading.semana}-${idx}`]).length;
+                        return `${completedInWeek} ${completedInWeek === 1 ? 'día completado' : 'días completados'}`;
+                      })()}
+                    </p>
+
+                    <button 
+                      className="btn-primary" 
+                      style={{ width: '100%', padding: '16px', fontSize: '1rem', marginBottom: '15px' }} 
+                      onClick={() => setSelectedPassage(currentReading.capitulos)}
+                    >
+                      📖 CONTINUAR LECTURA
+                    </button>
+
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', textAlign: 'left', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '15px' }}>
+                      <div>
+                        <p style={{ fontSize: '0.7rem', color: 'var(--primary)', fontWeight: '700' }}>Lectura de Hoy</p>
+                        <p style={{ fontSize: '1rem', fontWeight: '700' }}>{currentReading.capitulos}</p>
+                      </div>
                       <button 
                         className="btn-secondary" 
-                        title="Descargar lecturas del mes para usar sin internet"
-                        style={{ flex: 1, padding: '10px', fontSize: '0.8rem' }}
                         onClick={preCacheReadings}
+                        style={{ background: 'rgba(255,255,255,0.05)', padding: '8px 12px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '5px', border: '1px solid rgba(255,255,255,0.1)' }}
                       >
-                        📥 OFFLINE
+                         <span style={{ fontSize: '1.2rem' }}>📥</span>
+                         <span style={{ fontSize: '0.7rem', fontWeight: 'bold' }}>OFFLINE</span>
                       </button>
                     </div>
                   </div>
@@ -362,7 +422,6 @@ function App() {
                     const weekNum = i + 1;
                     const weekData = lecturasData.find(w => w.semana === weekNum);
                     
-                    // Calculate progress for this week
                     let progress = 0;
                     if (weekData) {
                       const totalInWeek = weekData.lecturas.length;
@@ -383,7 +442,6 @@ function App() {
                           flexDirection: 'column',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          // Dynamic progress gradient
                           background: isFullyDone 
                             ? 'var(--primary)' 
                             : `linear-gradient(to top, var(--primary) ${progress}%, var(--surface-high) ${progress}%)`,
@@ -409,7 +467,9 @@ function App() {
                   })}
                 </div>
               </>
-            ) : (
+            )}
+
+            {activeTab === 'inicio' && selectedWeek && (
               <div className="animate-fade-in">
                 <button 
                   onClick={() => setSelectedWeek(null)}
@@ -454,7 +514,73 @@ function App() {
                 </div>
               </div>
             )}
+
+            {activeTab === 'ruta' && !selectedWeek && (
+              <div className="animate-fade-in">
+                <h1 style={{ marginBottom: '20px' }}>Mi Ruta Espiritual</h1>
+                <div className="glass-card">
+                   <p>Aquí aparecerá el resumen detallado de tus semanas (Próximamente en Beta).</p>
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'logros' && (
+              <div className="animate-fade-in">
+                <h1 style={{ marginBottom: '20px' }}>Mis Logros</h1>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
+                  {logrosData.map((logro, i) => {
+                    const isUnlocked = completedWeeks.length >= logro.requisitoSemanas;
+                    return (
+                      <div key={i} className="glass-card" style={{ textAlign: 'center', opacity: isUnlocked ? 1 : 0.4 }}>
+                         <div style={{ fontSize: '2rem', marginBottom: '10px' }}>{isUnlocked ? '🏆' : '🔒'}</div>
+                         <h3 style={{ fontSize: '0.9rem' }}>{logro.nombre}</h3>
+                         <p style={{ fontSize: '0.7rem' }}>{logro.nivel}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'perfil' && (
+              <div className="animate-fade-in">
+                <h1 style={{ marginBottom: '20px' }}>Mi Perfil</h1>
+                <div className="glass-card">
+                   <p><strong>Nombre:</strong> {formData.nombre} {formData.apellido}</p>
+                   <p><strong>Club:</strong> {formData.club}</p>
+                   <p><strong>Unidad:</strong> {formData.unidad}</p>
+                   <button 
+                     className="btn-primary" 
+                     style={{ marginTop: '20px', width: '100%', background: 'var(--error)', color: '#000' }}
+                     onClick={() => { localStorage.clear(); window.location.reload(); }}
+                    >
+                     CERRAR SESIÓN
+                   </button>
+                </div>
+              </div>
+            )}
+
+            {/* Bottom Navigation */}
+            <nav className="bottom-nav">
+              <div className={`nav-item ${activeTab === 'inicio' ? 'active' : ''}`} onClick={() => {setActiveTab('inicio'); setSelectedWeek(null);}}>
+                <span className="nav-icon">🏠</span>
+                <span>Inicio</span>
+              </div>
+              <div className={`nav-item ${activeTab === 'ruta' ? 'active' : ''}`} onClick={() => {setActiveTab('ruta'); setSelectedWeek(null);}}>
+                <span className="nav-icon">🗺️</span>
+                <span>Ruta</span>
+              </div>
+              <div className={`nav-item ${activeTab === 'logros' ? 'active' : ''}`} onClick={() => {setActiveTab('logros'); setSelectedWeek(null);}}>
+                <span className="nav-icon">🏆</span>
+                <span>Logros</span>
+              </div>
+              <div className={`nav-item ${activeTab === 'perfil' ? 'active' : ''}`} onClick={() => {setActiveTab('perfil'); setSelectedWeek(null);}}>
+                <span className="nav-icon">👤</span>
+                <span>Perfil</span>
+              </div>
+            </nav>
           </div>
+
     
           <AchievementModal logro={activeLogro} onClose={() => setActiveLogro(null)} />
           <BibleReaderModal 
