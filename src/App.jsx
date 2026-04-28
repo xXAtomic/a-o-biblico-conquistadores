@@ -18,6 +18,8 @@ function App() {
       id: null, // New field for server ID
       nombre: '',
       apellido: '',
+      email: '',
+      password: '',
       unidad: '',
       club: '',
       ciudad: '',
@@ -28,6 +30,8 @@ function App() {
   const [screen, setScreen] = useState(() => {
     return localStorage.getItem('conquibiblia_profile') ? 'dashboard' : 'register';
   });
+
+  const [authMode, setAuthMode] = useState('register'); // 'register' or 'login'
 
   const [completedWeeks, setCompletedWeeks] = useState(() => {
     const saved = localStorage.getItem('conquibiblia_weeks');
@@ -105,12 +109,20 @@ function App() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    
-    // Register in Cloud
     try {
-      const { data, error } = await supabase
+      // 1. Sign Up in Supabase Auth
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+      });
+
+      if (authError) throw authError;
+
+      // 2. Create Profile
+      const { data: profileData, error: profileError } = await supabase
         .from('profiles')
         .insert([{
+          id: authData.user.id,
           nombre: formData.nombre,
           apellido: formData.apellido,
           unidad: formData.unidad,
@@ -121,12 +133,38 @@ function App() {
         .select()
         .single();
 
-      if (error) throw error;
-      setFormData(data); // Supabase returns the full inserted row with UUID
+      if (profileError) throw profileError;
+
+      setFormData(profileData);
       setScreen('dashboard');
     } catch (err) {
-      console.error("Cloud registration failed, proceeding offline:", err);
+      alert("Error al registrarse: " + err.message);
+    }
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+        email: formData.email,
+        password: formData.password,
+      });
+
+      if (authError) throw authError;
+
+      // Fetch profile
+      const { data: profileData, error: profileError } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', authData.user.id)
+        .single();
+
+      if (profileError) throw profileError;
+
+      setFormData(profileData);
       setScreen('dashboard');
+    } catch (err) {
+      alert("Error al iniciar sesión: " + err.message);
     }
   };
 
@@ -261,40 +299,57 @@ function App() {
       return (
         <>
           <div className="app-container animate-fade-in">
-            <div className="hero-section" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
-              <img src="/icon2.png" alt="ConquisBiblia Icon" style={{ width: '100px', height: '100px', objectFit: 'contain', marginBottom: '10px' }} />
-              <h1 style={{ fontSize: 'min(2.5rem, 10vw)', lineHeight: '1', margin: 0, textAlign: 'center' }}>Conquis<span style={{ color: 'var(--on-surface)' }}>Biblia</span></h1>
+            <div className="hero-section" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginBottom: '30px' }}>
+              <img src="/icon2.png" alt="ConquisBiblia Icon" style={{ width: '120px', height: '120px', objectFit: 'contain', marginBottom: '15px' }} />
+              <h1 style={{ fontSize: 'min(2.8rem, 12vw)', lineHeight: '1', margin: 0, textAlign: 'center' }}>Conquis<span style={{ color: 'var(--on-surface)' }}>Biblia</span></h1>
             </div>
     
-            <form className="registration-card glass-card" onSubmit={handleRegister}>
-              <div className="input-group">
-                <label>Nombre</label>
-                <input type="text" name="nombre" placeholder="Tu nombre" required value={formData.nombre} onChange={handleInputChange} />
-              </div>
-              <div className="input-group">
-                <label>Apellido</label>
-                <input type="text" name="apellido" placeholder="Tu apellido" required value={formData.apellido} onChange={handleInputChange} />
-              </div>
-              <div className="input-group">
-                <label>Unidad / Club</label>
-                <div className="flex-row-mobile">
-                  <input type="text" name="unidad" placeholder="Unidad" required value={formData.unidad} onChange={handleInputChange} />
-                  <input type="text" name="club" placeholder="Club" required value={formData.club} onChange={handleInputChange} />
+            <form className="registration-card glass-card" onSubmit={authMode === 'register' ? handleRegister : handleLogin}>
+              {authMode === 'register' && (
+                <div className="input-group">
+                  <label>Nombres / Apellidos</label>
+                  <div className="flex-row-mobile">
+                    <input type="text" name="nombre" placeholder="Nombre" required value={formData.nombre} onChange={handleInputChange} />
+                    <input type="text" name="apellido" placeholder="Apellido" required value={formData.apellido} onChange={handleInputChange} />
+                  </div>
                 </div>
-              </div>
+              )}
+
               <div className="input-group">
-                <label>Ciudad / País</label>
-                <div className="flex-row-mobile">
-                  <input type="text" name="ciudad" placeholder="Ciudad" required value={formData.ciudad} onChange={handleInputChange} />
-                  <input type="text" name="pais" placeholder="País" required value={formData.pais} onChange={handleInputChange} />
-                </div>
+                <label>Credenciales (Email / Contraseña)</label>
+                <input type="email" name="email" placeholder="Correo electrónico" required value={formData.email} onChange={handleInputChange} style={{ marginBottom: '10px' }} />
+                <input type="password" name="password" placeholder="Contraseña" required value={formData.password} onChange={handleInputChange} />
               </div>
-    
+
+              {authMode === 'register' && (
+                <>
+                  <div className="input-group">
+                    <label>Unidad / Club</label>
+                    <div className="flex-row-mobile">
+                      <input type="text" name="unidad" placeholder="Unidad" required value={formData.unidad} onChange={handleInputChange} />
+                      <input type="text" name="club" placeholder="Club" required value={formData.club} onChange={handleInputChange} />
+                    </div>
+                  </div>
+                  <div className="input-group">
+                    <label>Ciudad / País</label>
+                    <div className="flex-row-mobile">
+                      <input type="text" name="ciudad" placeholder="Ciudad" required value={formData.ciudad} onChange={handleInputChange} />
+                      <input type="text" name="pais" placeholder="País" required value={formData.pais} onChange={handleInputChange} />
+                    </div>
+                  </div>
+                </>
+              )}
+
               <button type="submit" className="btn-primary btn-full">
-                COMENZAR EXPEDICIÓN
+                {authMode === 'register' ? 'COMENZAR EXPEDICIÓN' : 'INICIAR SESIÓN'}
               </button>
+
               <p style={{ textAlign: 'center', fontSize: '0.85rem', color: 'var(--on-surface-variant)', marginTop: '20px' }}>
-                ¿Ya tienes cuenta? <span style={{ color: 'var(--primary)', cursor: 'pointer', fontWeight: 'bold' }}>Inicia sesión</span>
+                {authMode === 'register' ? (
+                  <>¿Ya tienes cuenta? <span style={{ color: 'var(--primary)', cursor: 'pointer', fontWeight: 'bold' }} onClick={() => setAuthMode('login')}>Inicia sesión</span></>
+                ) : (
+                  <>¿No tienes cuenta? <span style={{ color: 'var(--primary)', cursor: 'pointer', fontWeight: 'bold' }} onClick={() => setAuthMode('register')}>Regístrate</span></>
+                )}
               </p>
               <p style={{ textAlign: 'center', fontSize: '0.75rem', color: 'var(--on-surface-variant)', marginTop: '20px', opacity: 0.6 }}>Creado por AtomicDevs</p>
             </form>
@@ -327,36 +382,37 @@ function App() {
                   <div className="dashboard-hero glass-card animate-slide-up" style={{ textAlign: 'center', padding: '30px 20px', marginBottom: '30px' }}>
                     <p style={{ color: 'var(--on-surface-variant)', fontSize: '0.9rem', marginBottom: '15px' }}>Progreso Semanal</p>
                     
-                    <div style={{ position: 'relative', width: '180px', height: '180px', margin: '0 auto 20px' }}>
+                    <div style={{ position: 'relative', width: '220px', height: '220px', margin: '0 auto 20px' }}>
                       <svg viewBox="0 0 36 36" style={{ width: '100%', height: '100%', transform: 'rotate(-90deg)' }}>
-                        <path
-                          d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                        <circle
+                          cx="18" cy="18" r="16.5"
                           fill="none"
-                          stroke="rgba(255,255,255,0.1)"
-                          strokeWidth="3"
+                          stroke="rgba(255,255,255,0.05)"
+                          strokeWidth="1.2"
                         />
-                        <path
-                          d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                        <circle
+                          cx="18" cy="18" r="16.5"
                           fill="none"
                           stroke="var(--primary)"
-                          strokeWidth="3"
+                          strokeWidth="1.2"
                           strokeDasharray={`${(() => {
                             const weekData = lecturasData.find(w => w.semana === currentReading.semana);
                             const completedInWeek = weekData.lecturas.filter((_, idx) => completedLecturas[`${currentReading.semana}-${idx}`]).length;
                             return (completedInWeek / weekData.lecturas.length) * 100;
                           })()}, 100)`}
                           strokeLinecap="round"
+                          style={{ transition: 'stroke-dasharray 1s ease-in-out' }}
                         />
                       </svg>
-                      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-                        <span style={{ fontSize: '2.5rem', fontWeight: '800', display: 'block' }}>
+                      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '80%' }}>
+                        <span style={{ fontSize: '3rem', fontWeight: '900', display: 'block', color: '#FFF' }}>
                           {Math.round((() => {
                             const weekData = lecturasData.find(w => w.semana === currentReading.semana);
                             const completedInWeek = weekData.lecturas.filter((_, idx) => completedLecturas[`${currentReading.semana}-${idx}`]).length;
                             return (completedInWeek / weekData.lecturas.length) * 100;
                           })())}%
                         </span>
-                        <span style={{ fontSize: '0.7rem', color: 'var(--on-surface-variant)', fontWeight: '600' }}>
+                        <span style={{ fontSize: '0.75rem', color: 'var(--on-surface-variant)', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px' }}>
                           Semana {currentReading.semana} de 52
                         </span>
                       </div>
