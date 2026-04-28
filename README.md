@@ -25,16 +25,19 @@
 - **📜 Certificado Oficial:** Generación de certificado de reconocimiento en formato horizontal (Landscape) optimizado para impresión A4, disponible únicamente al completar las 52 semanas.
 - **📖 Lector de Biblia Integrado:** Acceso directo a los versículos mediante una API dinámica (RV1960).
 - **🎨 Diseño Vanguard Elite:** Interfaz premium con modo oscuro, efectos de vidrio (glassmorphism) y animaciones fluidas.
+- **☁️ Sincronización en la Nube (Supabase):** Tu progreso está seguro. Regístrate y recupera tus lecturas en cualquier dispositivo.
+- **📥 Modo Ultra-Offline:** Descarga lecturas por adelantado para campamentos o zonas sin señal con un solo toque.
+- **🔔 Recordatorios Inteligentes:** Notificaciones diarias automáticas para mantener el hábito de la lectura constante.
 
 ---
 
 ## 🚀 Tecnologías Utilizadas
 
 - **Frontend:** React 19 + Vite 8
-- **Estilos:** CSS3 nativo (Variables, Flexbox, Grid, Animaciones)
-- **Móvil:** Capacitor (Preparado para Android e iOS)
-- **API:** Integración con Bible API (deno.dev) para textos bíblicos.
-- **Iconos:** Lucide React & Custom SVGs.
+- **Base de Datos & Auth:** Supabase (PostgreSQL)
+- **Móvil:** Capacitor 8 (Android e iOS)
+- **Notificaciones:** Capacitor Local Notifications
+- **API:** Bible API (RV1960) con sistema de caché local.
 
 ---
 
@@ -44,12 +47,12 @@ Sigue estos pasos para ejecutar el proyecto localmente:
 
 1. **Clonar el repositorio:**
    ```bash
-   git clone https://github.com/tu-usuario/ano-biblico-conquistadores.git
+   git clone https://github.com/xXAtomic/Conquisbiblia.git
    ```
 
 2. **Entrar al directorio:**
    ```bash
-   cd ano-biblico-conquistadores
+   cd ConquisBiblia
    ```
 
 3. **Instalar dependencias:**
@@ -69,10 +72,11 @@ Sigue estos pasos para ejecutar el proyecto localmente:
 - [x] Implementación completa del plan de 52 semanas.
 - [x] Sistema de logros e ilustraciones personalizadas.
 - [x] Generación de certificado A4 horizontal.
-- [ ] Integración completa con Capacitor para App Store y Play Store.
-- [ ] Notificaciones push diarias para recordatorios de lectura.
-- [ ] Sincronización en la nube (Firebase/Supabase).
-- [ ] Modo offline para lectura sin conexión.
+- [x] Integración con Supabase para Sincronización en la Nube.
+- [x] Notificaciones push diarias para recordatorios.
+- [x] Modo offline con pre-descarga de capítulos.
+- [ ] Lanzamiento en Google Play Store (Fase Comercial).
+- [ ] Multi-lenguaje (Próximamente).
 
 ---
 

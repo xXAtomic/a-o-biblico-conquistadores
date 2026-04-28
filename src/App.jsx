@@ -6,6 +6,7 @@ import AchievementModal from './components/AchievementModal';
 import BibleReaderModal from './components/BibleReaderModal';
 import Certificate from './components/Certificate';
 import { supabase } from './supabaseClient';
+import { LocalNotifications } from '@capacitor/local-notifications';
 
 const API_URL = 'https://api.crisadones.com'; // Cambiar por tu subdominio final
 
@@ -162,6 +163,71 @@ function App() {
     }
   }, [formData.id, screen]);
 
+  const preCacheReadings = async () => {
+    // Find next 4 weeks starting from current progress
+    const nextWeeks = lecturasData.filter(w => !completedWeeks.includes(w.semana)).slice(0, 4);
+    let count = 0;
+    
+    for (const week of nextWeeks) {
+      for (const passage of week.lecturas) {
+        const cacheKey = `bible_cache_${passage.replace(/\s+/g, '_').toLowerCase()}`;
+        if (!localStorage.getItem(cacheKey)) {
+          try {
+            const lastSpaceIndex = passage.lastIndexOf(' ');
+            if (lastSpaceIndex === -1) continue;
+            const bookRaw = passage.substring(0, lastSpaceIndex);
+            const refRaw = passage.substring(lastSpaceIndex + 1);
+            let book = bookRaw.toLowerCase().replace(/\s+/g, '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            if (book === 'salmo') book = 'salmos';
+            const [chapter, verses] = refRaw.split(':');
+            
+            const response = await fetch(`https://bible-api.deno.dev/api/read/rv1960/${book}/${chapter}/${verses}`);
+            if (response.ok) {
+              const data = await response.json();
+              localStorage.setItem(cacheKey, JSON.stringify(data));
+              count++;
+            }
+          } catch (e) { console.error("Error pre-caching:", passage); }
+        }
+      }
+    }
+    alert(`¡Éxito! Se han descargado ${count} nuevas lecturas para uso offline.`);
+  };
+
+  // Handle Notifications Setup
+  useEffect(() => {
+    if (screen === 'dashboard') {
+      const setupNotifications = async () => {
+        try {
+          const permission = await LocalNotifications.requestPermissions();
+          if (permission.display === 'granted') {
+            await LocalNotifications.cancel({ notifications: [{ id: 1 }] });
+            await LocalNotifications.schedule({
+              notifications: [
+                {
+                  title: "📖 ¡Es hora de tu Expedición!",
+                  body: "¿Ya completaste tu lectura del Año Bíblico hoy? No te quedes atrás.",
+                  id: 1,
+                  schedule: {
+                    on: { hour: 8, minute: 0 },
+                    repeats: true,
+                    allowWhileIdle: true
+                  },
+                  actionTypeId: "",
+                  extra: null
+                }
+              ]
+            });
+            console.log("Daily notification scheduled for 8:00 AM");
+          }
+        } catch (err) {
+          console.error("Notification setup failed:", err);
+        }
+      };
+      setupNotifications();
+    }
+  }, [screen]);
+
   // Find the first uncompleted reading to show in "Lectura de hoy"
   const getTodayReading = () => {
     for (const week of lecturasData) {
@@ -246,13 +312,26 @@ function App() {
             {!selectedWeek ? (
               <>
                 {currentReading ? (
-                  <div className="glass-card" style={{ marginBottom: '30px', borderLeft: '4px solid var(--primary)', cursor: 'pointer' }} onClick={() => setSelectedPassage(currentReading.capitulos)}>
-                    <h3 style={{ fontSize: '0.8rem', color: 'var(--on-surface-variant)', marginBottom: '5px' }}>PRÓXIMA LECTURA (SEMANA {currentReading.semana})</h3>
-                    <p style={{ fontSize: '1.4rem', fontWeight: '800' }}>{currentReading.capitulos}</p>
-                    <p style={{ fontSize: '0.8rem', color: 'var(--on-surface-variant)', marginTop: '5px' }}>{currentReading.tema}</p>
-                    <button className="btn-primary" style={{ marginTop: '15px', padding: '10px 20px' }}>
-                      LEER AHORA
-                    </button>
+                  <div className="today-card glass-card animate-slide-up">
+                    <div className="today-header">
+                      <span className="today-label">Lectura de hoy</span>
+                      <span className="today-week">Semana {currentReading.semana}</span>
+                    </div>
+                    <h3 className="today-passage">{currentReading.capitulos}</h3>
+                    <p className="today-theme">{currentReading.tema}</p>
+                    <div style={{ display: 'flex', gap: '10px', marginTop: '15px' }}>
+                      <button className="btn-primary" style={{ flex: 2 }} onClick={() => setSelectedPassage(currentReading.capitulos)}>
+                        ABRIR LECTOR
+                      </button>
+                      <button 
+                        className="btn-secondary" 
+                        title="Descargar lecturas del mes para usar sin internet"
+                        style={{ flex: 1, padding: '10px', fontSize: '0.8rem' }}
+                        onClick={preCacheReadings}
+                      >
+                        📥 OFFLINE
+                      </button>
+                    </div>
                   </div>
                 ) : (
                   <div className="glass-card" style={{ marginBottom: '30px', borderLeft: '4px solid #4CAF50', background: 'rgba(76, 175, 80, 0.1)' }}>

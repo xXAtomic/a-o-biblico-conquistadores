@@ -29,6 +29,16 @@ const BibleReaderModal = ({ passage, onClose, onFinished }) => {
       setLoading(true);
       setError(null);
       try {
+        const cacheKey = `bible_cache_${passage.replace(/\s+/g, '_').toLowerCase()}`;
+        const cachedData = localStorage.getItem(cacheKey);
+
+        if (cachedData) {
+          console.log("Cargando desde caché offline:", passage);
+          setContent(JSON.parse(cachedData));
+          setLoading(false);
+          return;
+        }
+
         // Robust parsing for books with numbers/spaces (e.g., "1 Reyes 3:3-15")
         const lastSpaceIndex = passage.lastIndexOf(' ');
         if (lastSpaceIndex === -1) throw new Error('Formato de pasaje inválido');
@@ -49,10 +59,13 @@ const BibleReaderModal = ({ passage, onClose, onFinished }) => {
         const response = await fetch(`https://bible-api.deno.dev/api/read/rv1960/${book}/${chapter}/${verses}`);
         if (!response.ok) throw new Error('No se pudo cargar el texto bíblico');
         const data = await response.json();
+        
+        // Save to cache
+        localStorage.setItem(cacheKey, JSON.stringify(data));
         setContent(data);
       } catch (err) {
         console.error(err);
-        setError('Error al cargar el texto bíblico. Por favor intenta de nuevo.');
+        setError('Error al cargar el texto bíblico. Revisa tu conexión a internet.');
       } finally {
         setLoading(false);
       }
