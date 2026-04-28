@@ -1,4 +1,4 @@
-# 📖 Año Bíblico Conquistadores - Vanguard Elite
+# 📖 ConquisBiblia - Año Bíblico Conquistadores - Vanguard Elite
 
 ¡Bienvenido al proyecto oficial del **Año Bíblico para Conquistadores**! Esta es una aplicación web y móvil moderna, diseñada específicamente para ayudar a los Conquistadores de la Iglesia Adventista del Séptimo Día a mantener un registro constante y motivador de su lectura bíblica diaria.
 
