@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ConquiBiblia</string>
+    <string name="title_activity_main">ConquiBiblia</string>
+    <string name="package_name">com.atomic.conquibiblia</string>
+    <string name="custom_url_scheme">com.atomic.conquibiblia</string>
+</resources>

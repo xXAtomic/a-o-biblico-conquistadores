@@ -1,0 +1,678 @@
+[
+  {
+    "semana": 1,
+    "tema": "¿QUIÉN SOY?",
+    "lecturas": [
+      "Salmos 139:13-16",
+      "Juan 14:12-31",
+      "Juan 15:1-17",
+      "Salmos 18:33-36",
+      "Deuteronomio 32:9",
+      "Jeremías 2:21",
+      "Salmos 62:1-2"
+    ]
+  },
+  {
+    "semana": 2,
+    "tema": "¿CÓMO ESTOY?",
+    "lecturas": [
+      "Colosenses 2:8-23",
+      "1 Corintios 1:20-31",
+      "Jeremías 9:23-24",
+      "Filipenses 3:1-6",
+      "Romanos 7:21-25",
+      "Lucas 2:52",
+      "1 Tesalonicenses 5:16-18"
+    ]
+  },
+  {
+    "semana": 3,
+    "tema": "RESPONSABILIDAD",
+    "lecturas": [
+      "Proverbios 16:7",
+      "Gálatas 5:23",
+      "Apocalipsis 1",
+      "Apocalipsis 2",
+      "Apocalipsis 3",
+      "Apocalipsis 4",
+      "Apocalipsis 5"
+    ]
+  },
+  {
+    "semana": 4,
+    "tema": "INTENTAR OTRA VEZ",
+    "lecturas": [
+      "Zacarías 4:6",
+      "Isaías 40:12-13",
+      "Hageo 2:5",
+      "1 Samuel 17:47",
+      "Santiago 1:13-15",
+      "Salmos 27:14",
+      "Isaías 41:10"
+    ]
+  },
+  {
+    "semana": 5,
+    "tema": "ME SIENTO MISERABLE",
+    "lecturas": [
+      "Salmos 42:6",
+      "Isaías 26:3",
+      "Salmos 55:22",
+      "Salmos 46",
+      "Mateo 6:25-34",
+      "Salmos 34:18",
+      "Juan 14:27"
+    ]
+  },
+  {
+    "semana": 6,
+    "tema": "EL VALOR",
+    "lecturas": [
+      "Josué 1",
+      "Jueces 6",
+      "Jueces 7",
+      "Efesios 6:10-20",
+      "Salmos 27:1",
+      "Isaías 43:1",
+      "Daniel 10:19"
+    ]
+  },
+  {
+    "semana": 7,
+    "tema": "ESTAR SOLO",
+    "lecturas": [
+      "Salmos 23",
+      "Salmos 27",
+      "Salmos 91",
+      "Salmos 121",
+      "Mateo 28:20",
+      "Hebreos 13:5",
+      "Juan 14:18"
+    ]
+  },
+  {
+    "semana": 8,
+    "tema": "SENTIR MIEDO",
+    "lecturas": [
+      "Mateo 14:3-33",
+      "Salmos 81",
+      "Isaías 26:1-15",
+      "Isaías 30:1-18",
+      "Isaías 32",
+      "Josué 1:9",
+      "Salmos 56:3"
+    ]
+  },
+  {
+    "semana": 9,
+    "tema": "LA REBELIÓN",
+    "lecturas": [
+      "Salmos 141",
+      "Salmos 130",
+      "Proverbios 12",
+      "Proverbios 15",
+      "Mateo 18",
+      "1 Samuel 15:23",
+      "Romanos 13:1-2"
+    ]
+  },
+  {
+    "semana": 10,
+    "tema": "NORMAS DE CONDUCTA",
+    "lecturas": [
+      "Éxodo 20:1-17",
+      "Mateo 5:1-16",
+      "Romanos 12:1-8",
+      "Romanos 12:9-21",
+      "1 Corintios 10:31",
+      "Filipenses 4:8",
+      "1 Juan 2:15-17"
+    ]
+  },
+  {
+    "semana": 11,
+    "tema": "EL PECADO",
+    "lecturas": [
+      "Romanos 3",
+      "Romanos 6",
+      "Salmos 25",
+      "Isaías 1",
+      "1 Juan 1:9",
+      "Salmos 51:1-10",
+      "Santiago 4:17"
+    ]
+  },
+  {
+    "semana": 12,
+    "tema": "EL CARÁCTER",
+    "lecturas": [
+      "Mateo 5:1-12",
+      "Proverbios 16:18",
+      "Lucas 12:1-12",
+      "Romanos 6:12-19",
+      "Gálatas 5:22-23",
+      "Colosenses 3:12-17",
+      "2 Pedro 1:5-8"
+    ]
+  },
+  {
+    "semana": 13,
+    "tema": "LA TENTACIÓN",
+    "lecturas": [
+      "Lucas 10:1-20",
+      "1 Pedro 5",
+      "Efesios 6:10-20",
+      "Romanos 12:2",
+      "1 Corintios 10:13",
+      "Santiago 1:12-15",
+      "Mateo 4:1-11"
+    ]
+  },
+  {
+    "semana": 14,
+    "tema": "LA ESPERANZA",
+    "lecturas": [
+      "Salmos 94:12-19",
+      "Salmos 95",
+      "1 Reyes 3",
+      "Salmos 63",
+      "Romanos 15:13",
+      "Lamentaciones 3:21-25",
+      "Jeremías 29:11"
+    ]
+  },
+  {
+    "semana": 15,
+    "tema": "EL AMOR",
+    "lecturas": [
+      "1 Corintios 13",
+      "1 Juan 3",
+      "1 Juan 4",
+      "Juan 3:16",
+      "Juan 15:12-13",
+      "Romanos 5:8",
+      "Salmos 136:1-9"
+    ]
+  },
+  {
+    "semana": 16,
+    "tema": "EL GOZO",
+    "lecturas": [
+      "Filipenses 4",
+      "Salmos 100",
+      "Nehemías 8:10",
+      "Salmos 16:11",
+      "Habacuc 3:17-18",
+      "Sofonías 3:17",
+      "Juan 16:22-24"
+    ]
+  },
+  {
+    "semana": 17,
+    "tema": "LA AVENTURA",
+    "lecturas": [
+      "Salmos 37",
+      "1 Juan 1",
+      "1 Tesalonicenses 1",
+      "1 Tesalonicenses 2",
+      "1 Tesalonicenses 3",
+      "Salmos 51",
+      "Isaías 40:31"
+    ]
+  },
+  {
+    "semana": 18,
+    "tema": "SER FELIZ",
+    "lecturas": [
+      "Filipenses 1",
+      "Malaquías 1",
+      "Salmos 1",
+      "Mateo 5:1-10",
+      "Proverbios 3:13-18",
+      "Salmos 144:15",
+      "Juan 13:17"
+    ]
+  },
+  {
+    "semana": 19,
+    "tema": "LAS PROMESAS",
+    "lecturas": [
+      "Hebreos 11",
+      "Romanos 8:28-39",
+      "2 Pedro 1:4",
+      "Josué 21:45",
+      "2 Corintios 1:20",
+      "Números 23:19",
+      "Isaías 55:10-11"
+    ]
+  },
+  {
+    "semana": 20,
+    "tema": "LA FIDELIDAD",
+    "lecturas": [
+      "Ester 1-2",
+      "Ester 3-4",
+      "Ester 5-7",
+      "Ester 8-9",
+      "Daniel 1",
+      "Daniel 3",
+      "Daniel 6"
+    ]
+  },
+  {
+    "semana": 21,
+    "tema": "SER CRISTIANO",
+    "lecturas": [
+      "Efesios 4",
+      "Mateo 10",
+      "Proverbios 25",
+      "Miqueas 6:8",
+      "Hechos 11:26",
+      "1 Pedro 4:16",
+      "2 Corintios 5:17"
+    ]
+  },
+  {
+    "semana": 22,
+    "tema": "PENSAR EN DIOS",
+    "lecturas": [
+      "Salmos 103",
+      "Lamentaciones 3",
+      "Job 40",
+      "Job 41",
+      "Job 42",
+      "Isaías 55:8-9",
+      "Colosenses 3:2"
+    ]
+  },
+  {
+    "semana": 23,
+    "tema": "TOMAR DECISIONES",
+    "lecturas": [
+      "Lucas 14",
+      "Mateo 4",
+      "Marcos 8",
+      "Mateo 16",
+      "Santiago 1:5",
+      "Proverbios 3:5-6",
+      "Josué 24:15"
+    ]
+  },
+  {
+    "semana": 24,
+    "tema": "SER EJEMPLO",
+    "lecturas": [
+      "1 Timoteo 4:12",
+      "Mateo 5:14-16",
+      "Tito 2:7-8",
+      "1 Pedro 2:12",
+      "1 Corintios 11:1",
+      "Filipenses 3:17",
+      "2 Tesalonicenses 3:9"
+    ]
+  },
+  {
+    "semana": 25,
+    "tema": "LA VIDA CON DIOS",
+    "lecturas": [
+      "Juan 15",
+      "Salmos 119:1-16",
+      "Salmos 119:17-32",
+      "Salmos 119:33-48",
+      "Gálatas 2:20",
+      "Filipenses 1:21",
+      "Colosenses 3:1-4"
+    ]
+  },
+  {
+    "semana": 26,
+    "tema": "LA OBEDIENCIA",
+    "lecturas": [
+      "Romanos 12",
+      "Mateo 6:1-15",
+      "Mateo 6:16-34",
+      "Jonás 1-2",
+      "Jonás 3-4",
+      "1 Samuel 15:22",
+      "Hechos 5:29"
+    ]
+  },
+  {
+    "semana": 27,
+    "tema": "DIOS PROVEE",
+    "lecturas": [
+      "Génesis 22",
+      "Salmos 34",
+      "Filipenses 4:19",
+      "Mateo 6:33",
+      "Salmos 37:25",
+      "2 Corintios 9:8",
+      "Isaías 41:17"
+    ]
+  },
+  {
+    "semana": 28,
+    "tema": "EL COMPROMISO",
+    "lecturas": [
+      "2 Reyes 22",
+      "Éxodo 32",
+      "Juan 16",
+      "Apocalipsis 7",
+      "Lucas 9:62",
+      "Salmos 37:5",
+      "Proverbios 16:3"
+    ]
+  },
+  {
+    "semana": 29,
+    "tema": "EL CRECIMIENTO",
+    "lecturas": [
+      "Lucas 8",
+      "Marcos 4",
+      "2 Pedro 3:18",
+      "Efesios 4:15",
+      "Colosenses 1:10",
+      "1 Tesalonicenses 3:12",
+      "1 Pedro 2:2"
+    ]
+  },
+  {
+    "semana": 30,
+    "tema": "LA FE",
+    "lecturas": [
+      "Hebreos 11:1-12",
+      "Hebreos 11:13-40",
+      "Mateo 17:20",
+      "Romanos 10:17",
+      "Efesios 2:8-9",
+      "Santiago 2:14-26",
+      "1 Juan 5:4"
+    ]
+  },
+  {
+    "semana": 31,
+    "tema": "LA ALABANZA",
+    "lecturas": [
+      "Salmos 145",
+      "Salmos 146",
+      "Salmos 147",
+      "Salmos 148",
+      "Salmos 149",
+      "Salmos 150",
+      "Hebreos 13:15"
+    ]
+  },
+  {
+    "semana": 32,
+    "tema": "LA ORACIÓN",
+    "lecturas": [
+      "Lucas 11:1-13",
+      "Mateo 6:5-15",
+      "Daniel 9:1-19",
+      "1 Tesalonicenses 5:17",
+      "Filipenses 4:6-7",
+      "Santiago 5:16",
+      "1 Juan 5:14-15"
+    ]
+  },
+  {
+    "semana": 33,
+    "tema": "LA CONFIANZA",
+    "lecturas": [
+      "Salmos 40",
+      "Isaías 12",
+      "Proverbios 3:5-6",
+      "Salmos 56:3",
+      "Salmos 118:8",
+      "Jeremías 17:7",
+      "Hebreos 13:6"
+    ]
+  },
+  {
+    "semana": 34,
+    "tema": "LA SALVACIÓN",
+    "lecturas": [
+      "Juan 3:1-21",
+      "Hechos 4:12",
+      "Efesios 2:1-10",
+      "Tito 3:5",
+      "Romanos 10:9-10",
+      "Hechos 16:31",
+      "Lucas 19:10"
+    ]
+  },
+  {
+    "semana": 35,
+    "tema": "EL PERDÓN",
+    "lecturas": [
+      "Lucas 15:1-10",
+      "Lucas 15:11-32",
+      "Mateo 18:21-35",
+      "Efesios 4:32",
+      "Colosenses 3:13",
+      "1 Juan 1:9",
+      "Miqueas 7:18"
+    ]
+  },
+  {
+    "semana": 36,
+    "tema": "LA HONESTIDAD",
+    "lecturas": [
+      "Proverbios 11",
+      "Hechos 5:1-11",
+      "Lucas 16:10",
+      "2 Corintios 8:21",
+      "Proverbios 12:22",
+      "Proverbios 28:13",
+      "Efesios 4:25"
+    ]
+  },
+  {
+    "semana": 37,
+    "tema": "LA MUERTE",
+    "lecturas": [
+      "Eclesiastés 12",
+      "1 Tesalonicenses 4:13-18",
+      "Juan 11:1-27",
+      "Juan 11:28-44",
+      "1 Corintios 15:51-57",
+      "Apocalipsis 21:4",
+      "Salmos 116:15"
+    ]
+  },
+  {
+    "semana": 38,
+    "tema": "EL BAUTISMO",
+    "lecturas": [
+      "Mateo 3",
+      "Romanos 6:1-11",
+      "Hechos 2:38",
+      "Hechos 8:26-40",
+      "Gálatas 3:27",
+      "Marcos 16:16",
+      "1 Pedro 3:21"
+    ]
+  },
+  {
+    "semana": 39,
+    "tema": "LA SEGUNDA VENIDA",
+    "lecturas": [
+      "Mateo 24:1-31",
+      "Mateo 24:32-51",
+      "1 Tesalonicenses 4:16-17",
+      "Hechos 1:11",
+      "Juan 14:1-3",
+      "Apocalipsis 1:7",
+      "Tito 2:13"
+    ]
+  },
+  {
+    "semana": 40,
+    "tema": "EL JUICIO",
+    "lecturas": [
+      "Daniel 7",
+      "Apocalipsis 14:6-12",
+      "Eclesiastés 12:14",
+      "2 Corintios 5:10",
+      "Hechos 17:31",
+      "Romanos 14:12",
+      "Mateo 12:36"
+    ]
+  },
+  {
+    "semana": 41,
+    "tema": "EL CIELO",
+    "lecturas": [
+      "Apocalipsis 21:1-7",
+      "Apocalipsis 21:8-27",
+      "Apocalipsis 22",
+      "Isaías 65:17-25",
+      "1 Corintios 2:9",
+      "Juan 14:2",
+      "2 Pedro 3:13"
+    ]
+  },
+  {
+    "semana": 42,
+    "tema": "ESTUDIO BÍBLICO",
+    "lecturas": [
+      "Salmos 119:105",
+      "2 Timoteo 3:16-17",
+      "Hechos 17:11",
+      "Josué 1:8",
+      "Juan 5:39",
+      "Salmos 1:2",
+      "Santiago 1:22"
+    ]
+  },
+  {
+    "semana": 43,
+    "tema": "LOS DESAFÍOS",
+    "lecturas": [
+      "Santiago 1:1-12",
+      "Job 1",
+      "Job 2",
+      "Romanos 5:3-5",
+      "1 Pedro 1:6-7",
+      "2 Corintios 4:17",
+      "Salmos 34:19"
+    ]
+  },
+  {
+    "semana": 44,
+    "tema": "¿QUÉ HARÉ?",
+    "lecturas": [
+      "Isaías 6:8",
+      "Mateo 9:37-38",
+      "Hechos 1:8",
+      "Romanos 10:14-15",
+      "Marcos 16:15",
+      "2 Timoteo 4:2",
+      "1 Corintios 9:16"
+    ]
+  },
+  {
+    "semana": 45,
+    "tema": "LA COMPASIÓN",
+    "lecturas": [
+      "Lucas 10:25-37",
+      "Mateo 25:31-46",
+      "Colosenses 3:12",
+      "1 Juan 3:17-18",
+      "Mateo 9:36",
+      "Marcos 6:34",
+      "Lucas 7:13"
+    ]
+  },
+  {
+    "semana": 46,
+    "tema": "NUEVOS COMIENZOS",
+    "lecturas": [
+      "Génesis 1",
+      "Apocalipsis 21:5",
+      "2 Corintios 5:17",
+      "Lamentaciones 3:22-23",
+      "Ezequiel 36:26",
+      "Isaías 43:18-19",
+      "Salmos 51:10"
+    ]
+  },
+  {
+    "semana": 47,
+    "tema": "EL SÁBADO",
+    "lecturas": [
+      "Génesis 2:1-3",
+      "Éxodo 20:8-11",
+      "Isaías 58:13-14",
+      "Marcos 2:27-28",
+      "Lucas 4:16",
+      "Éxodo 31:13-17",
+      "Levítico 23:3"
+    ]
+  },
+  {
+    "semana": 48,
+    "tema": "LA RECREACIÓN",
+    "lecturas": [
+      "Salmos 104",
+      "Filipenses 4:8",
+      "Eclesiastés 3:1-13",
+      "1 Corintios 10:31",
+      "Mateo 11:28-30",
+      "Salmos 118:24",
+      "Zacarías 8:5"
+    ]
+  },
+  {
+    "semana": 49,
+    "tema": "MI FUTURO",
+    "lecturas": [
+      "Jeremías 29:11",
+      "Proverbios 3:5-6",
+      "Salmos 32:8",
+      "Salmos 37:4-5",
+      "Isaías 30:21",
+      "Santiago 4:13-15",
+      "Filipenses 1:6"
+    ]
+  },
+  {
+    "semana": 50,
+    "tema": "PRESIÓN SOCIAL",
+    "lecturas": [
+      "Proverbios 1",
+      "Daniel 1",
+      "Éxodo 23:2",
+      "Romanos 12:2",
+      "1 Corintios 15:33",
+      "Salmos 1:1",
+      "Gálatas 1:10"
+    ]
+  },
+  {
+    "semana": 51,
+    "tema": "TRABAJAR PARA DIOS",
+    "lecturas": [
+      "Mateo 28:19-20",
+      "Colosenses 3:23-24",
+      "1 Corintios 15:58",
+      "Efesios 2:10",
+      "Mateo 5:16",
+      "2 Corintios 5:20",
+      "Juan 9:4"
+    ]
+  },
+  {
+    "semana": 52,
+    "tema": "EL DISCIPULADO",
+    "lecturas": [
+      "Lucas 9",
+      "Juan 13",
+      "Mateo 16:24",
+      "Juan 8:31",
+      "Juan 15:8",
+      "Lucas 14:26-33",
+      "Hechos 1:8"
+    ]
+  }
+]

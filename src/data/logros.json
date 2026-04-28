@@ -1,0 +1,58 @@
+[
+  {
+    "id": "daniel",
+    "nombre": "Daniel",
+    "requisitoSemanas": 1,
+    "mensaje": "Daniel oraba 3 veces al día y estudiaba la Palabra con diligencia. ¡Has demostrado la misma constancia!",
+    "color": "#FFD700",
+    "imagen": "characters/daniel.png"
+  },
+  {
+    "id": "david",
+    "nombre": "David",
+    "requisitoSemanas": 4,
+    "mensaje": "Un hombre conforme al corazón de Dios. Al igual que David, has encontrado deleite en las Escrituras.",
+    "color": "#4CAF50",
+    "imagen": "characters/david.png"
+  },
+  {
+    "id": "ester",
+    "nombre": "Ester",
+    "requisitoSemanas": 8,
+    "mensaje": "Valentía y fe. Has avanzado con determinación en tu estudio bíblico. ¡Sigue brillando!",
+    "color": "#E91E63",
+    "imagen": "characters/esther.png"
+  },
+  {
+    "id": "jose",
+    "nombre": "José",
+    "requisitoSemanas": 16,
+    "mensaje": "Integridad en toda prueba. Tu perseverancia en la lectura bíblica está forjando un carácter inquebrantable.",
+    "color": "#2196F3",
+    "imagen": "characters/jose.png"
+  },
+  {
+    "id": "moises",
+    "nombre": "Moisés",
+    "requisitoSemanas": 24,
+    "mensaje": "Liderazgo y humildad. A mitad del camino, has aprendido a escuchar la voz de Dios en el monte sagrado.",
+    "color": "#795548",
+    "imagen": "characters/moises.png"
+  },
+  {
+    "id": "pablo",
+    "nombre": "Pablo",
+    "requisitoSemanas": 40,
+    "mensaje": "Un gran misionero. Tu pasión por la Palabra ha crecido, y ahora estás listo para compartir lo que has aprendido.",
+    "color": "#673AB7",
+    "imagen": "characters/pablo.png"
+  },
+  {
+    "id": "jesus",
+    "nombre": "Victoria",
+    "requisitoSemanas": 52,
+    "mensaje": "¡META ALCANZADA! Has completado el Año Bíblico. Eres un ejemplo de fidelidad para todo tu club.",
+    "color": "#FFC107",
+    "imagen": "characters/jesus.png"
+  }
+]
