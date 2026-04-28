@@ -617,24 +617,27 @@ function App() {
             )}
 
             {/* Bottom Navigation */}
-            <nav className="bottom-nav">
-              <div className={`nav-item ${activeTab === 'inicio' ? 'active' : ''}`} onClick={() => {setActiveTab('inicio'); setSelectedWeek(null);}}>
-                <span className="nav-icon">🏠</span>
-                <span>Inicio</span>
-              </div>
-              <div className={`nav-item ${activeTab === 'ruta' ? 'active' : ''}`} onClick={() => {setActiveTab('ruta'); setSelectedWeek(null);}}>
-                <span className="nav-icon">🗺️</span>
-                <span>Ruta</span>
-              </div>
-              <div className={`nav-item ${activeTab === 'logros' ? 'active' : ''}`} onClick={() => {setActiveTab('logros'); setSelectedWeek(null);}}>
-                <span className="nav-icon">🏆</span>
-                <span>Logros</span>
-              </div>
-              <div className={`nav-item ${activeTab === 'perfil' ? 'active' : ''}`} onClick={() => {setActiveTab('perfil'); setSelectedWeek(null);}}>
-                <span className="nav-icon">👤</span>
-                <span>Perfil</span>
-              </div>
-            </nav>
+            {/* Bottom Navigation (Hides when a week is selected for better visibility) */}
+            {!selectedWeek && (
+              <nav className="bottom-nav">
+                <div className={`nav-item ${activeTab === 'inicio' ? 'active' : ''}`} onClick={() => {setActiveTab('inicio'); setSelectedWeek(null);}}>
+                  <span className="nav-icon">🏠</span>
+                  <span>Inicio</span>
+                </div>
+                <div className={`nav-item ${activeTab === 'ruta' ? 'active' : ''}`} onClick={() => {setActiveTab('ruta'); setSelectedWeek(null);}}>
+                  <span className="nav-icon">🗺️</span>
+                  <span>Ruta</span>
+                </div>
+                <div className={`nav-item ${activeTab === 'logros' ? 'active' : ''}`} onClick={() => {setActiveTab('logros'); setSelectedWeek(null);}}>
+                  <span className="nav-icon">🏆</span>
+                  <span>Logros</span>
+                </div>
+                <div className={`nav-item ${activeTab === 'perfil' ? 'active' : ''}`} onClick={() => {setActiveTab('perfil'); setSelectedWeek(null);}}>
+                  <span className="nav-icon">👤</span>
+                  <span>Perfil</span>
+                </div>
+              </nav>
+            )}
           </div>
 
     
